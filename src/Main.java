@@ -8,9 +8,9 @@ public class Main {
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		Body test = new Body("Hello");
 		
+		int ascii = 65;
 		
-		
-			System.out.println(test.hash("hello"));
+			System.out.println(Character.toString((char)(int)ascii));
 		
 		
 	}
