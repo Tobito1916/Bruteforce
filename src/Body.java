@@ -3,38 +3,36 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Body {
-	public Body() {
+	 Body() {
 
 
 	}
 
-	public String brute(int wortla, char einschr, String testpass) throws NoSuchAlgorithmException {
+	public String brute(int wortlaenge, char einschraenkung, String testpasswort) throws NoSuchAlgorithmException {
 
-		int wortl = wortla;
-		Double mengedouble;
+
+
 		int menge;
-		char einsch = einschr;
 		int anzahlzeichen = 0;
-		String testwort = testpass;
 		String ergebnis;
 
-		if (einsch == 'a') {
+		if (einschraenkung == 'a') {
 			anzahlzeichen = 126 - 33;
 		}
-		if (einsch == 'b') {
+		if (einschraenkung == 'b') {
 			anzahlzeichen = (90 - 65) + (122 - 97);
 		}
-		if (einsch == 'z') {
+		if (einschraenkung == 'z') {
 			anzahlzeichen = 10;
 		}
 
-		for (int i = 1; i <= wortl; i++) {
+		for (int i = 1; i <= wortlaenge; i++) {
 
-			mengedouble = Math.pow(anzahlzeichen, i);
-			menge = mengedouble.intValue();
 
-			ergebnis = wortconst(wortl, einsch, menge, testwort);
-			if (ergebnis != "") {
+			menge = ((int) Math.pow(anzahlzeichen, i));
+
+			ergebnis = wortconst(wortlaenge, einschraenkung, menge, testpasswort);
+			if (!ergebnis.equals("") ) {
 				return ergebnis;
 			}
 			;
@@ -52,6 +50,7 @@ public class Body {
 		String ergebnis = "";
 		String ergebnishash = "";
 		String testwort = testw;
+
 		if (einsch == 'a') {
 			for (int o = 0; o < wort.length; o++) {
 				wort[o] = 33;
@@ -72,7 +71,7 @@ public class Body {
 				}
 
 				ergebnishash = hash(ergebnis);
-				//System.out.println(ergebnis +": "+ergebnishash+testw);
+				//System.out.println(ergebnis +": "+ergebnishash+ " " + testw);
 				if (ergebnishash.equals(testw)) {
 
 					return ergebnis;
@@ -106,7 +105,7 @@ public class Body {
 				}
 
 				ergebnishash = hash(ergebnis);
-				//System.out.println(ergebnis +": "+ergebnishash+testw);
+				//System.out.println(ergebnis +": "+ergebnishash+ " " + testw);
 				if (ergebnishash.equals(testw)) {
 
 					return ergebnis;
@@ -116,6 +115,39 @@ public class Body {
 			}
 
 		}
+
+		if (einsch == 'z'){
+			for (int o = 0; o < wort.length; o++) {
+				wort[o] = 48;
+			}
+			for (int q = 0; q <= menge; q++) {
+
+				if (wort[0] == 57) {
+
+					for (int i = 1; i < wort.length; i++) {
+						if (wort[i - 1] == 57) {
+							wort[i]++;
+							wort[i - 1] = 48;
+						}
+					}
+				}
+				for (int p = 0; p < wort.length; p++) {
+					ergebnis = ergebnis + Character.toString((char) (int) wort[p]);
+				}
+
+				ergebnishash = hash(ergebnis);
+				//System.out.println(ergebnis +": "+ergebnishash+ " " +testw);
+				if (ergebnishash.equals(testw)) {
+
+					return ergebnis;
+				}
+				ergebnis = "";
+				wort[0]++;
+
+
+			}
+		}
+
 		return "";
 	}
 		public String hash(String m) throws NoSuchAlgorithmException {
