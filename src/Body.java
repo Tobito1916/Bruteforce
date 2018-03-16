@@ -3,12 +3,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Body {
-	 Body() {
+
+    Body() {
 
 
 	}
 
-	public String brute(int wortlaenge, char einschraenkung, String testpasswort) throws NoSuchAlgorithmException {
+	String brute(int wortlaenge, char einschraenkung, String testpasswort) throws NoSuchAlgorithmException {
 
 
 
@@ -43,7 +44,7 @@ public class Body {
 
 	}
 
-	public String wortconst(int lang, char einschr, int meng, String testw) throws NoSuchAlgorithmException {
+	String wortconst(int lang, char einschr, int meng, String testw) throws NoSuchAlgorithmException {
 		int menge = meng;
 		char einsch = einschr;
 		int[] wort = new int[lang];
@@ -150,7 +151,8 @@ public class Body {
 
 		return "";
 	}
-		public String hash(String m) throws NoSuchAlgorithmException {
+
+	String hash(String m) throws NoSuchAlgorithmException {
 
 			//hashen
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
