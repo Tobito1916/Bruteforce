@@ -6,13 +6,9 @@ public class Main {
 	String pass ;
 	String prob ;
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		Body test = new Body("Hello");
+		Body test = new Body("abc");
 		
-		int ascii = 65;
-		
-			System.out.println(Character.toString((char)(int)ascii));
-		
-		
+		System.out.println(test.brute(4,'a',test.hash("D9o!")));
 	}
  
  

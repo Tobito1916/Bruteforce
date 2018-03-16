@@ -5,18 +5,20 @@ import java.security.NoSuchAlgorithmException;
 public class Body {
 	static int merk;
 	String pass;
-	public Body (String a) {
-		pass = a;
+	public Body (String a) throws NoSuchAlgorithmException {
+		pass = hash(a);
+
+
 	}
 
-	public String brute (int wortla, char einschr){
-		merk =0;
+	public String brute (int wortla, char einschr, String testpass) throws NoSuchAlgorithmException {
+
 		int wortl = wortla;
 		Double mengedouble;
 		int menge;
 		char einsch = einschr;
 		int anzahlzeichen = 0;
-		String testwort;
+		String testwort = testpass;
 		String ergebnis;
 
 		if (einsch == 'a'){
@@ -34,11 +36,10 @@ public class Body {
 			mengedouble = Math.pow(anzahlzeichen, i);
 			menge = mengedouble.intValue();
 
-			for(int p = 1; p <= menge ; p++){
-				if(vergleich(wortconst(i,einsch,p),pass)){
-					return(wortconst(i,einsch,p));
-				};
-			}
+			ergebnis = wortconst(wortl,einsch,menge,testwort);
+			if (ergebnis != ""){
+				return ergebnis;
+			};
 
 		}
 
@@ -46,42 +47,43 @@ public class Body {
 
 	}
 
-	public String wortconst (int lang, char einschr, int posi){
-		int pos = posi;
-		if ((pos - (merk *122)) == 123){
-			merk++;
-		};
+	public String wortconst (int lang, char einschr, int meng, String testw) throws NoSuchAlgorithmException {
+		int menge = meng;
 		char einsch = einschr;
-		String ergebnis = "noch nix";
+		int[] wort = new int[lang];
+		String ergebnis = "";
+		String ergebnishash = "";
+		String testwort = testw;
 		if (einsch == 'a'){
-			int[] erg = new int[lang];
-			int s = pos - (merk*122);
-			if (s == 1){
-				erg[1] = 33 + merk;
-				for (int o = 1; o < lang; o++ ){
-					erg[o] = 33;
+			for (int o = 0; o < wort.length; o++){
+				wort[o] = 33;
+			}
+			for (int q = 0; q <= menge ; q++ ){
+
+				if (wort[0] == 127) {
+
+					for (int i = 1; i < wort.length; i++) {
+						if (wort[i-1] == 127){
+							wort[i]++;
+							wort[i-1] = 33;
+						}
+					}
+				}
+				for (int p= 0; p<wort.length;p++){
+					ergebnis = ergebnis + Character.toString((char)(int)wort[p]);
 				}
 
+				ergebnishash = hash(ergebnis);
+				//System.out.println(ergebnis +": "+ergebnishash+testw);
+				if (ergebnishash.equals(testw)){
 
-
-			}else{
-
-			}
-		}
-		if (einsch == 'b'){
-			for (int i = 1; i <=lang; i++){
-				int ascii = 64+posi;
-				if (ascii == 91){
-					ascii = 97;
+					return ergebnis;
 				}
-				ergebnis = ergebnis + Character.toString((char)(int)ascii);
+				ergebnis = "";
+				wort[0]++;
 			}
 		}
-
-
-
-		//ergebnis = ergebnis + ; //wort wird laenger;
-		return ergebnis;
+		return "";
 	}
 
 	public  boolean vergleich (String a, String b) {
