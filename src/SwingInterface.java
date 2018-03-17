@@ -53,6 +53,7 @@ public class SwingInterface implements Runnable {
             quit = q;
             eingabe = f;
             ausgabe = t;
+
         }
 
         @Override
